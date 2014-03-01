@@ -3,6 +3,6 @@ var config = {
 	websocketport:	18883,
 	usetls:		false,
 	userlisturl: 	'users.json',
-	friendstopic:	'mqttitude/+/+',
-	mytopic:	'mqttitude/jpm/3gs',
+	friendstopic:	'owntracks/+/+',
+	mytopic:	'owntracks/jpm/5s',
 };

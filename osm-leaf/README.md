@@ -16,11 +16,11 @@ These things work:
 
 ```json
 {
-    "mqttitude/jpm/3gs" : {
+    "owntracks/jpm/3gs" : {
 	    "name": "JP",
 	    "mail": "jpmens@gmail.com"
     },
-    "mqttitude/su00/nexus" : {
+    "owntracks/su00/nexus" : {
     	"name": "Suze Smith",
 	"mail": "su@example.net"
     }
