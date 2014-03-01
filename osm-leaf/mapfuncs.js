@@ -37,9 +37,21 @@ function mapit(topic, d, date)
 {
 	if (topic == config.mytopic) {
 		// TODO: move me instead of recreating it each time
-		me = L.marker([d.lat, d.lon], {icon: redIcon}).addTo(map);
-		m.bindPopup(getPopupText(user, d.lat, d.lon));
-		latlngs.push(me.getLatLng());
+		if (!me) {
+			me = L.marker([d.lat, d.lon], {icon: redIcon}).addTo(map);
+			me.bindPopup(getPopupText(user, d.lat, d.lon));
+			
+			/* Bind a mouseover to the marker */
+			me.on('mouseover', function(evt) {
+				evt.target.openPopup();
+			});
+			
+			latlngs.push(me.getLatLng());
+			map.fitBounds(L.latLngBounds(latlngs));
+		} else {
+			me.setLatLng({lat: d.lat, lng: d.lon});
+			me.setPopupContent(getPopupText(user, d.lat, d.lon));
+		}
 		
 	} else { // a friend
 		var user = getUser(topic);
@@ -58,12 +70,9 @@ function mapit(topic, d, date)
 			f = friend_move(user, d.lat, d.lon);
 		} else {
 			f = friend_add(user, d.lat, d.lon);
+			latlngs.push(f.getLatLng());
+			map.fitBounds(L.latLngBounds(latlngs));
 		}
-		latlngs.push(f.getLatLng());
+		
 	}
-
-	/* Add lat/lon to array and make sure map encapsulates every
-	 * point */
-
-	// map.fitBounds(L.latLngBounds(latlngs));
 }
