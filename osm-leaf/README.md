@@ -29,7 +29,7 @@ These things work:
 
 ## TLS
 
-Websockets over TLS has been tested using the `tls` branch of [WSS](https://github.com/stylpen/WSS/], which can do TLS on 'both' sides of a connection:
+Websockets over TLS has been tested using the `tls` branch of [WSS](https://github.com/stylpen/WSS/), which can do TLS on 'both' sides of a connection:
 
 ```
 
