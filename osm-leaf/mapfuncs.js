@@ -38,16 +38,20 @@ function mapit(topic, d, date)
 	if (topic == config.mytopic) {
 		// TODO: move me instead of recreating it each time
 		if (!me) {
-			me = L.marker([d.lat, d.lon], {icon: redIcon}).addTo(map);
-			me.bindPopup(getPopupText(user, d.lat, d.lon));
+			try {
+				me = L.marker([d.lat, d.lon], {icon: redIcon}).addTo(map);
+				me.bindPopup(getPopupText(user, d.lat, d.lon));
 			
-			/* Bind a mouseover to the marker */
-			me.on('mouseover', function(evt) {
-				evt.target.openPopup();
-			});
+				/* Bind a mouseover to the marker */
+				me.on('mouseover', function(evt) {
+					evt.target.openPopup();
+				});
 			
-			latlngs.push(me.getLatLng());
-			map.fitBounds(L.latLngBounds(latlngs));
+				latlngs.push(me.getLatLng());
+				map.fitBounds(L.latLngBounds(latlngs));
+			} catch (err) {
+				console.log(err);
+			}
 		} else {
 			me.setLatLng({lat: d.lat, lng: d.lon});
 			me.setPopupContent(getPopupText(user, d.lat, d.lon));
@@ -55,7 +59,7 @@ function mapit(topic, d, date)
 		
 	} else { // a friend
 		var user = getUser(topic);
-		if (!user.name) {
+		if (!user || !user.name) {
 			// doesn't exist. Create something
 			user = {
 				name: topic,
