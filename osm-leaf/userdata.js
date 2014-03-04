@@ -48,7 +48,12 @@ function getUser(topic)
 
 function getPopupText(user, lat, lon) {
 	var geoloc = getRevGeo(lat,lon);
-	var text = "<b>" + user.name + "</b><br/>" + lat + ", " + lon + "</br>" + geoloc;
+	var text;
+	try {
+		text = "<b>" + user.name + "</b><br/>" + lat + ", " + lon + "</br>" + geoloc;
+	} catch(err) {
+		text = "unknown user<br/>" + lat + ", " + lon + "</br>" + geoloc;
+	}
 	return text;
 }
 
