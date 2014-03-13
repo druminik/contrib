@@ -4,7 +4,7 @@ var me;
 var redIcon;
 var latlngs = Array();
 
-function load_map()
+function load_map(apiKey)
 {
 	map = L.map('map').setView([51.505, -0.09], 13);
 	var linecolor = 'green';
@@ -21,9 +21,9 @@ function load_map()
          });
 	redIcon = new RedIcon();
          
-	// FIXME: where do I start? Which tile?!?
-
-	L.tileLayer('http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png', {
+	L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
+	        key: apiKey,
+		styleId: 997,
 		maxZoom: 18,
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery ?? <a href="http://cloudmade.com">CloudMade</a>'
 	}).addTo(map);

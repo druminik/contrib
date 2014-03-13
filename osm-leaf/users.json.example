@@ -1,0 +1,10 @@
+{
+    "owntracks/jpm/5s" : {
+	    "name": "JP",
+	    "mail": "jp@example.com"
+    },
+    "owntracks/su00/nexus" : {
+    	"name": "Suze Smith",
+	"mail": "su@example.net"
+    }
+}
