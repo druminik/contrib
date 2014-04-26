@@ -1,7 +1,7 @@
 
 Work in Progress!
 
-![Screenshot](screenshot.jpg)
+![Screenshot](screenshot.png)
 
 
 ### Install
