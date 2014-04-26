@@ -6,7 +6,7 @@ var latlngs = Array();
 
 function load_map(apiKey)
 {
-	map = L.map('map').setView([51.505, -0.09], 13);
+	map = L.mapbox.map('map', apiKey).setView([51.505, -0.09], 13);
 	var linecolor = 'green';
 	var latlngs = Array();
 
@@ -21,12 +21,14 @@ function load_map(apiKey)
          });
 	redIcon = new RedIcon();
          
+	 /*
 	L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
 	        key: apiKey,
 		styleId: 997,
 		maxZoom: 18,
 		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery ?? <a href="http://cloudmade.com">CloudMade</a>'
 	}).addTo(map);
+	*/
 
 }
 
