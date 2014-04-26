@@ -6,8 +6,8 @@ Work in Progress!
 
 ### Install
 
-1. Obtain an API key at [cloudmade.com](http://cloudmade.com)
-2. Copy `config.js.example` to `config.js` and edit, adding your ApiKey.
+1. Obtain an API key at [mapbox.com](http://mapbox.com)
+2. Copy `config.js.example` to `config.js` and edit, adding your ApiKey which looks like 'username.i888e8e8x'.
 3. Copy `users.json.example` to `users.json` and edit.
 4. Launch `index.html`
 
