@@ -58,7 +58,8 @@ function MQTTconnect()
 
 			if (d.cog) {
 				$('#img-cog').show();
-				$('#img-cog').rotate(d.cog);
+				// -90 because original arrow points right (90)
+				$('#img-cog').rotate(parseFloat(d.cog) - 90.0);
 			} else {
 				$('#img-cog').hide();
 			}
