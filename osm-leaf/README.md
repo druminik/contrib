@@ -20,6 +20,12 @@ and is added to the _hover_ text of a user on the map:
 
 ![Hover text](screenshot2.png)
 
+If the JSON payload of a location publish contains course-over-ground (`cog`), velocity
+(`vel`) and altitude (`alt`) elements, these are displayed accordingly. (Note that these
+attributes are currently set only by our [Greenwich software](https://github.com/owntracks/gw).)
+
+![COG details](screenshot3.png)
+
 ### Installation
 
 1. Obtain an API key at [mapbox.com](http://mapbox.com)

@@ -47,6 +47,22 @@ function MQTTconnect()
 			$('#link-revgeo').prop("href", 
 				 'http://maps.google.com/?q=' + d.lat + ',' + d.lon);
 
+			if (d.vel) {
+				$('#msg-vel').text(Math.round(d.vel) + "k");
+			}
+			if (d.alt) {
+				$('#msg-alt').text(Math.round(d.alt) + "m");
+			}
+
+			/* Course over Ground */
+
+			if (d.cog) {
+				$('#img-cog').show();
+				$('#img-cog').rotate(d.cog);
+			} else {
+				$('#img-cog').hide();
+			}
+
 			console.log(topic + " " + d.lat + ", " + d.lon);
 		} catch (err) {
 			console.log("JSON parse error " + err);
