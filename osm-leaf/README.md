@@ -30,14 +30,14 @@ and is added to the _hover_ text of a user on the map:
 ## Websocket
 
 This app has been tested with the `tls` branch of of [WSS](https://github.com/stylpen/WSS/) as
-well as with the (currently experimental) [Mosquitto](http://mosquitto.org) Websocket support. (See [this post for more information](http://jpmens.net/2014/07/03/the-mosquitto-mqtt-broker-gets-websockets-support/).
+well as with the (currently experimental) [Mosquitto](http://mosquitto.org) Websocket support. (See [this post for more information](http://jpmens.net/2014/07/03/the-mosquitto-mqtt-broker-gets-websockets-support/).)
 
 If the connection between the app and the MQTT broker dies, the app will attempt to reconnect every few seconds.
 
 ## Credits
 
 * A lot of JavaScript/CSS help from [Severin Schols](https://github.com/tiefpunkt)
-* [Leaflet.js](http://leafletjs.com).
+* [Leaflet.js](http://leafletjs.com)
 * [jQuery](http://jquery.com/)
 * [Paho JavaScript Client](http://www.eclipse.org/paho/clients/js/)
 
