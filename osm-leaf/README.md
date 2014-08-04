@@ -22,7 +22,7 @@ and is added to the _hover_ text of a user on the map:
 
 If the JSON payload of a location publish contains course-over-ground (`cog`), velocity
 (`vel`) and altitude (`alt`) elements, these are displayed accordingly. (Note that these
-attributes are currently set only by our [Greenwich software](https://github.com/owntracks/gw).)
+attributes are currently set only by our [Greenwich software](https://github.com/owntracks/gw).) The arrow indicates course-over-ground and moves accordingly.
 
 ![COG details](screenshot3.png)
 
