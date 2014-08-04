@@ -1,10 +1,11 @@
 {
     "owntracks/jpm/5s" : {
-	    "name": "JP",
-	    "mail": "jp@example.com"
+	    "name": "JP"
+    },
+    "owntracks/vehi/1992345100119" : {
+    	"name": "42"
     },
     "owntracks/su00/nexus" : {
-    	"name": "Suze Smith",
-	"mail": "su@example.net"
+    	"name": "SU"
     }
 }

@@ -2,22 +2,6 @@
 var users = {};
 
 
-function gravatar(email) {
-	var md5 = hex_md5(email.trim().toLowerCase());
-	var url = 'http://www.gravatar.com/avatar/' + md5;
-	return url;
-}
-
-function leaf_icon(url) {
-	var icon = L.Icon.Default.extend({
-            options: {
-	    	iconUrl: url,
-		iconSize: [35, 35],
-	    }
-         });
-	return new icon;
-}
-
 function getuserlist() {
 	$.ajax({
 		type: 'GET',
@@ -35,10 +19,10 @@ function getuserlist() {
 
 	for (var topic in users) {
 		var u = users[topic];
-		u.icon = leaf_icon(gravatar(u.mail));
-		// alert(topic + ": " + u.name + " " + u.mail);
+		u['count'] = 0;
+		// alert("USER=" + JSON.stringify(u));
+		// alert(topic + ": " + u.name);
 	}
-
 }
 
 function getUser(topic)
@@ -108,19 +92,26 @@ function getRevGeo(lat, lon) {
 function friend_add(user, lat, lon)
 {
 	// Add marker with icon (and text) and return marker object
-	// TODO: text could have reverse-geo on it ...
 
-	var m = L.marker([lat, lon], {
-		icon: user.icon
-		}).addTo(map);
-
+        var m = L.marker([lat, lon],
+                        {
+                          // icon: myIcon,
+                          icon: L.divIcon({
+                                className: 'count-icon',
+                                html: user.name, // AK
+                                iconSize: [30, 30]
+                            }),
+                          title: user.lastloc
+                        })
+                        .addTo(map);
 	
+	/* Optional: set marker with revgeo */
+	/*
 	m.bindPopup(getPopupText(user, lat, lon));
-
-	/* Bind a mouseover to the marker */
 	m.on('mouseover', function(evt) {
 		evt.target.openPopup();
 	});
+	*/
 
 
 	// Bind marker to user
@@ -133,7 +124,24 @@ function friend_move(user, lat, lon)
 {
 	if (user.marker) {
 		user.marker.setLatLng({lat: lat, lng: lon});
+		
+		/* Use different/alternating class names to switch colour,
+		   indicaing movement? */
+
+		map.removeLayer(user.marker);
+		user.marker = L.marker([lat, lon], {
+			icon: L.divIcon({
+				className: 'count-icon',
+				html: user.name, // AK
+				iconSize: [30, 30]
+			}),
+                        title: user.lastloc
+		}).addTo(map);
+
+
+		/* Optional: set marker popup, with current rev geo
 		user.marker.setPopupContent(getPopupText(user, lat, lon));
+		*/
 	}
 
 	return user.marker;

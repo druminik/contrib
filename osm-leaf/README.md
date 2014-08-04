@@ -1,92 +1,46 @@
+# OwnTracks Live Map
 
-Work in Progress!
+This is a map which will show [OwnTracks] activity live on a Web page. The page
+connects via [MQTT] to a Websockets-enabled MQTT broker and updates a map with
+positions of OwnTracks users.
 
 ![Screenshot](screenshot.png)
 
+Because OwnTracks topic names can become quite long (e.g. `owntracks/jpm/nexus4`)
+we introduce the notion of a _user name_, a one or two character string which
+identifies a particular OwnTracks device. These could be the initials of a user
+(e.g. `JP`), the number of an OwnTracks-enabled vehicle (e.g. `42`) or anything.
+(You configure these  _topic_ to _user name_ mappings in the `users.json` file which is
+loaded when the app starts.)
 
-### Install
+These users are displayed on a map, and their current positions are updated in
+realtime. In addition, the app performs reverse Geo lookups to show the name
+of a user's location, which is updated at the bottom of the screen (see above)
+and is added to the _hover_ text of a user on the map:
+
+![Hover text](screenshot2.png)
+
+### Installation
 
 1. Obtain an API key at [mapbox.com](http://mapbox.com)
 2. Copy `config.js.example` to `config.js` and edit, adding your ApiKey which looks like 'username.i888e8e8x'.
-3. Copy `users.json.example` to `users.json` and edit.
-4. Launch `index.html`
+3. Copy `users.json.example` to `users.json` and edit. This is the file which contains a mapping from OwnTracks MQTT topic name to _user name_.
+4. Point a browser at `index.html`
 
-### What works
+## Websocket
 
-* Load friends from users.json
-* Obtain friends' icon from Gravatar
-* move a friend when (s)he moves
-* move self (red Icon)
-* pan to bound all icons
-* label popup with name, loc if name in users.json
+This app has been tested with the `tls` branch of of [WSS](https://github.com/stylpen/WSS/) as
+well as with the (currently experimental) [Mosquitto](http://mosquitto.org) Websocket support. (See [this post for more information](http://jpmens.net/2014/07/03/the-mosquitto-mqtt-broker-gets-websockets-support/).
 
-## users.json
-
-```json
-{
-    "owntracks/jpm/3gs" : {
-	    "name": "JP",
-	    "mail": "jpmens@gmail.com"
-    },
-    "owntracks/su00/nexus" : {
-    	"name": "Suze Smith",
-	"mail": "su@example.net"
-    }
-}
-```
-
-## TLS
-
-Websockets over TLS has been tested using the `tls` branch of [WSS](https://github.com/stylpen/WSS/), which can do TLS on 'both' sides of a connection:
-
-```
-
-
-                       +------------------------------------+
-                       |               WSS                  |
-                       |------------------------------------|
-                       |                                    |
-                       |                                    |
-                       |                                    |
-         --ws-keyfile  |                                    |   --broker-ca
-         --ws-chainfile|                                    |
-       +--------------->                                    +--------------> MQTT broker
-                       |                                    |
-                       |                                    |
-                       |                                    |
-                       |                                    |
-                       |                                    |
-                       +------------------------------------+
-```
-
-As soon as you have a certificate and a key file for WSS proper, concatenate the two
-into a single file which you pass to `ws-chainfile`. For example, using `generate-CA.sh`
-you'd do as follows:
-
-```
-./generate-CA.sh
-cat server.crt ca.crt > chain.pem
-./WSS_static_armv6 \
-	--brokerHost 192.168.1.130 \
-	--brokerPort 8883 \
-	--broker-tls-enabled \
-	--ws-keyfile server.key \
-	--ws-chainfile chain.pem \
-	--verbose
-```
-
-## TODO
-
-* add name, location, (reverse geo) to marker
-* <del>can mouse-hover over marker show popup instead of having to click?</del> Done
-* keep map positioned where it is w/o re-scale (easier see of moving markers)
-* add activity counter right of map to show new friends' PUBs
-* maybe show list of friends on right of map, with faces & location (like iOS app)?
-
+If the connection between the app and the MQTT broker dies, the app will attempt to reconnect every few seconds.
 
 ## Credits
 
+* A lot of JavaScript/CSS help from [Severin Schols](https://github.com/tiefpunkt)
 * [Leaflet.js](http://leafletjs.com).
-* [jshash](http://pajhome.org.uk/crypt/md5/index.html) by Paul Johnston. (BSD)
 * [jQuery](http://jquery.com/)
+* [Paho JavaScript Client](http://www.eclipse.org/paho/clients/js/)
+
+ [owntracks]: http://www.owntracks.org
+ [mqtt]: http://mqtt.org
 

@@ -1,28 +1,55 @@
-function mqtt_connect()
+var reconnectTimeout = 3000;
+var mqtt;
+
+function MQTTconnect()
 {
-	var client = new Messaging.Client(config.websockethost, config.websocketport,
+	mqtt = new Messaging.Client(config.websockethost, config.websocketport,
 				"leaf" + parseInt(Math.random() * 100, 10));
 
-	client.onConnectionLost = function (responseObject) {
+	mqtt.onConnectionLost = function (responseObject) {
+		setTimeout(MQTTconnect, reconnectTimeout);
 		$('#mqttstatus').html("Connection lost");
 		$('#mqttstatus-details').html(responseObject.errorMessage);
+		console.log(responseObject.errorMessage);
 	};
 
-	client.onMessageArrived = function (message) {
+	mqtt.onMessageArrived = function (message) {
 		topic = message.destinationName;
 
 		try {
 			payload = message.payloadString;
 			var d = $.parseJSON(payload);
+			console.log(payload);
 
 			if (d._type != 'location') {
 				return;
 			}
-			var date = new Date(d.tst * 1000); //convert epoch time to readible local datetime
-			$('#msg').val(topic + " " + payload);
+			var date = new Date(d.tst * 1000); //convert epoch time to datetime
+			var tstamp = date.toLocaleString();
+
+			var user = getUser(topic);
+			if (user && user.name) {
+				if ((user.count % config.geoupdate) == 0) {
+					user['lastloc'] = getRevGeo(d.lat, d.lon);
+					console.log("User: " + user.name + " RevGeo=" + user.lastloc);
+				}
+				user.count++;
+				console.log("User: " + user.name + " " + user.count);
+
+			}
+
+			$('#msg-date').text(tstamp);
+			$('#msg-user').text(user.name);
+			$('#msg-lat').text(d.lat);
+			$('#msg-lon').text(d.lon);
+
+			$('#link-revgeo').text(user.lastloc);
+			$('#link-revgeo').prop("href", 
+				 'http://maps.google.com/?q=' + d.lat + ',' + d.lon);
+
 			console.log(topic + " " + d.lat + ", " + d.lon);
 		} catch (err) {
-			$('#msg').val("JSON parse error " + err);
+			console.log("JSON parse error " + err);
 			return;
 		}
 
@@ -31,21 +58,21 @@ function mqtt_connect()
 	};
 
 	var options = {
-		timeout: 10,
+		timeout: 60,
 		useSSL: config.usetls,
 		onSuccess: function () {
 			$('#mqttstatus').html("Connected");
 			$('#mqttstatus-details').html("Host: " + config.websockethost + ", Port:" +  config.websocketport);
-			client.subscribe(config.friendstopic, {qos: 0});
-			client.subscribe(config.mytopic, {qos: 0});
+			mqtt.subscribe(config.subscribe, {qos: 0});
 		},
 		onFailure: function (message) {
 			$('#mqttstatus').html("Connection failed");
 			$('#mqttstatus-details').html(message.errorMessage);
+			setTimeout(MQTTconnect, reconnectTimeout);
 		}
 	};
 
 	/* Connect to MQTT broker */
-	client.connect(options);
+	mqtt.connect(options);
 }
 

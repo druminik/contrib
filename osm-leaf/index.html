@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+    <link rel="shortcut icon" href="favicon.ico">
 
 
-    <title>OwnTracks with OSM</title>
+    <title>OwnTracks Live Map</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="vendor/leaflet.css" />
+    <link rel="stylesheet" href="vendor/leaflet.label.css" />
   	<!--[if lte IE 8]><link rel="stylesheet" href="vendor/leaflet.ie.css" /><![endif]-->
   </head>
 
@@ -38,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">OwnTracks with OSM</a>
+          <a class="navbar-brand" href="#">OwnTracks</a>
         </div>
         
         <div class="collapse navbar-collapse">
@@ -61,28 +62,35 @@
     </div>
     
 		<div id="map" style=""></div>
-    <input type="text" name="msg" id="msg" value="" size="80" />
+	    <div id='msg'>
+	    	<span id='msg-date'></span>
+		<span id='msg-user'></span>
+		<span id='msg-revgeo'><a href='#' id='link-revgeo'>xxx</a></span>
+		<span id='msg-lat'></span>
+		<span id='msg-lon'></span>
+	    </div>
 
 
     <script src="vendor/jquery-1.10.2.min.js"></script>
     <script src="vendor/bootstrap.min.js"></script>
-		<script src="vendor/leaflet.js"></script>
+    <script src="vendor/leaflet.js"></script>
+    <!-- https://github.com/Leaflet/Leaflet.label -->
+    <script src="vendor/leaflet.label.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
-		<script src="vendor/md5-min.js"></script>
-		<script src="vendor/mqttws31.js"></script>
-		<script src="config.js"></script>
-		<script src="userdata.js"></script>
-		<script src="mapfuncs.js"></script>
-		<script src="mqttfuncs.js"></script>
-		</script>
-		<script>
-			$(document).ready(function() {
-				load_map(config.apiKey);
-				mqtt_connect();
-				getuserlist();
-				$('#msg').val('starting');
-			});
-		</script>
+    <script src="vendor/mqttws31.js"></script>
+    <script src="config.js"></script>
+    <script src="userdata.js"></script>
+    <script src="mapfuncs.js"></script>
+    <script src="mqttfuncs.js"></script>
+    </script>
+    <script>
+    	$(document).ready(function() {
+    		load_map(config.apiKey);
+    		getuserlist();
+    		MQTTconnect();
+    		$('#msg').val('starting');
+    	});
+    </script>
   </body>
 </html>

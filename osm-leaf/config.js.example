@@ -2,8 +2,10 @@ var config = {
 	websockethost:	'localhost',
 	websocketport:	18883,
 	usetls:		false,
-	userlisturl: 	'users.json',
-	friendstopic:	'owntracks/+/+',
-	mytopic:	'owntracks/jpm/5s',
-	apiKey:		'BC9A493B41014CAABB98F0471D759707',
+	userlisturl:    'users.json',
+	subscribe:	'owntracks/+/+',
+	// Update reverse Geo every modulo times. Set
+	// to 1 for each MQTT message, 10 for every 10th
+	geoupdate:	5,
+	apiKey:		'xxxxxx.ynnnyyyy',
 };
