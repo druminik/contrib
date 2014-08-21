@@ -7,7 +7,7 @@ function load_geofences()
 {
 	$.ajax({
 		type: 'GET',
-		url: 'geo-fences.json',
+		url: config.geofences,
 		async: false,
 		data: {},
 		dataType: 'json',
