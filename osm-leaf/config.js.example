@@ -8,4 +8,9 @@ var config = {
 	// to 1 for each MQTT message, 10 for every 10th
 	geoupdate:	5,
 	apiKey:		'xxxxxx.ynnnyyyy',
+
+	/* If not null, `geofences' is a URL to a JSON file
+	   containing geo fence descriptions. */
+
+	geofences: 	'geo-fences.json',
 };

@@ -26,6 +26,12 @@ attributes are currently set only by our [Greenwich software](https://github.com
 
 ![COG details](screenshot3.png)
 
+Geo-fence support is available; see comments in the configuration file and the JSON in
+`geo-fences.json`.
+
+![Geofence](paris-geofence.png)
+
+
 ### Installation
 
 1. Obtain an API key at [mapbox.com](http://mapbox.com)
