@@ -19,7 +19,7 @@ function MQTTconnect()
 		try {
 			payload = message.payloadString;
 			var d = $.parseJSON(payload);
-			console.log(payload);
+			// console.log(payload);
 
 			if (d._type != 'location') {
 				return;
@@ -64,7 +64,7 @@ function MQTTconnect()
 				$('#img-cog').hide();
 			}
 
-			console.log(topic + " " + d.lat + ", " + d.lon);
+			// console.log(topic + " " + d.lat + ", " + d.lon);
 		} catch (err) {
 			console.log("JSON parse error " + err);
 			return;

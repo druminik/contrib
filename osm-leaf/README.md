@@ -36,8 +36,10 @@ Geo-fence support is available; see comments in the configuration file and the J
 
 1. Obtain an API key at [mapbox.com](http://mapbox.com)
 2. Copy `config.js.example` to `config.js` and edit, adding your ApiKey which looks like 'username.i888e8e8x'.
-3. Copy `users.json.example` to `users.json` and edit. This is the file which contains a mapping from OwnTracks MQTT topic name to _user name_.
+3. <del>Copy `users.json.example` to `users.json` and edit. This is the file which contains a mapping from OwnTracks MQTT topic name to _user name_.</del>
 4. Point a browser at `index.html`
+
+Step #3 has been deprecated, as we now have support for `tid` (tracker ID) in the JSON payloads. If unset, `tid` defaults to the last two characters of the topic name.
 
 ## Websocket
 

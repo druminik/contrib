@@ -49,8 +49,13 @@ function mapit(topic, d, date)
 	var user = getUser(topic);
 	if (!user || !user.name) {
 		// doesn't exist. Create something
+		if (d.tid) {
+			tid = d.tid;
+		} else {
+			tid = topic.slice(-2);
+		}
 		user = {
-			name: topic,
+			name: tid,
 			count: 0,
 		};
 		users[topic] = user;
